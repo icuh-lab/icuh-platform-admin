@@ -26,4 +26,9 @@ public class ArticleController {
 	public String articleDetail(@PathVariable("id") Long id) {
 		return "article/article-detail";
 	}
+
+    @GetMapping("/article/delete-detail/{id}")
+    public String articleDeleteDetail(@PathVariable("id") Long id) {
+        return "article/article-delete-detail";
+    }
 }

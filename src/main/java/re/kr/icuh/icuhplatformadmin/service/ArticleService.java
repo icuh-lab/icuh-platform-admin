@@ -81,4 +81,15 @@ public class ArticleService {
                 .map(ArticleListResponse::fromEntity)
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void deleteApproveArticle(Long id) {
+        Article article = articleQueryRepository.findArticle(id);
+
+        article.changeStatus(ArticleStatus.DELETED);
+
+        article.getFiles().stream()
+                .filter(file -> file.getStatus() == FileStatus.DELETED_PENDING)
+                .forEach(file -> file.changeStatus(FileStatus.DELETED));
+    }
 }

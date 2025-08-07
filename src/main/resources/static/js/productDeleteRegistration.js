@@ -150,7 +150,7 @@ function displayArticles(articles, page = 1, itemsPerPage = 10) {
         row.className = 'hover:bg-gray-50';
         row.innerHTML = `
             <td class="px-6 py-4 whitespace-nowrap">
-                <a href="/article/detail/${article.id}" class="text-blue-600 hover:underline">
+                <a href="/article/delete-detail/${article.id}" class="text-blue-600 hover:underline">
                     ${article.title}
                 </a>
             </td>
@@ -171,12 +171,12 @@ function displayArticles(articles, page = 1, itemsPerPage = 10) {
 // 상태에 따른 표시 텍스트 반환
 function getStatusDisplayText(status) {
     switch(status) {
-        case 'APPROVED':
-            return '승인완료';
+        case 'DELETED':
+            return '삭제 완료';
         case 'REJECTED':
             return '거부됨';
-        case 'PENDING':
-            return '대기중';
+        case 'DELETED_PENDING':
+            return '삭제 대기중';
         default:
             return status || '대기중';
     }
@@ -185,11 +185,11 @@ function getStatusDisplayText(status) {
 // 상태에 따른 클래스 반환
 function getStatusClass(status) {
     switch(status) {
-        case 'APPROVED':
+        case 'DELETED':
             return 'bg-green-100 text-green-800';
         case 'REJECTED':
             return 'bg-red-100 text-red-800';
-        case 'PENDING':
+        case 'DELETED_PENDING':
         default:
             return 'bg-yellow-100 text-yellow-800';
     }
