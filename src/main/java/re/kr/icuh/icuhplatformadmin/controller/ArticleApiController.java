@@ -38,4 +38,14 @@ public class ArticleApiController {
     public void approveArticle(@PathVariable Long id) {
         articleService.approveArticle(id);
     }
+
+    @GetMapping("/articles/delete-list")
+    public List<ArticleListResponse> findDeletePendingArticles() {
+        return articleService.findDeletePendingArticles();
+    }
+
+    @GetMapping("/articles/delete-approved")
+    public List<ArticleListResponse> findDeleteApprovedArticles() {
+        return articleService.findDeleteApprovedArticles();
+    }
 }
