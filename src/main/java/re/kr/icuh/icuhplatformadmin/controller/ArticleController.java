@@ -2,6 +2,7 @@ package re.kr.icuh.icuhplatformadmin.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class ArticleController {
@@ -19,5 +20,10 @@ public class ArticleController {
 	@GetMapping("/article/delete-list")
 	public String deleteList() {
 		return "article/delete-list";
+	}
+
+	@GetMapping("/article/detail/{id}")
+	public String articleDetail(@PathVariable("id") Long id) {
+		return "article/article-detail";
 	}
 }
