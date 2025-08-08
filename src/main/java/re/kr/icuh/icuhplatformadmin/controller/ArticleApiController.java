@@ -38,4 +38,20 @@ public class ArticleApiController {
     public void approveArticle(@PathVariable Long id) {
         articleService.approveArticle(id);
     }
+
+    @GetMapping("/articles/delete-list")
+    public List<ArticleListResponse> findDeletePendingArticles() {
+        return articleService.findDeletePendingArticles();
+    }
+
+    @GetMapping("/articles/delete-approved")
+    public List<ArticleListResponse> findDeleteApprovedArticles() {
+        return articleService.findDeleteApprovedArticles();
+    }
+
+    // 게시글 삭제 승인 버튼 api
+    @PatchMapping("/articles/{id}")
+    public void deleteApproveArticle(@PathVariable Long id) {
+        articleService.deleteApproveArticle(id);
+    }
 }

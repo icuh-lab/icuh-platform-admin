@@ -61,4 +61,35 @@ public class ArticleService {
                 .filter(file -> file.getStatus() == FileStatus.PENDING)
                 .forEach(file -> file.changeStatus(FileStatus.APPROVED));
     }
+
+    /**
+     * 삭제 요청 리스트
+     * @return
+     */
+    public List<ArticleListResponse> findDeletePendingArticles() {
+        List<Article> deletePendingArticles = articleQueryRepository.findDeletePendingArticles();
+
+        return deletePendingArticles.stream()
+                .map(ArticleListResponse::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    public List<ArticleListResponse> findDeleteApprovedArticles() {
+        List<Article> deletePendingArticles = articleQueryRepository.findDeleteApprovedArticles();
+
+        return deletePendingArticles.stream()
+                .map(ArticleListResponse::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void deleteApproveArticle(Long id) {
+        Article article = articleQueryRepository.findArticle(id);
+
+        article.changeStatus(ArticleStatus.DELETED);
+
+        article.getFiles().stream()
+                .filter(file -> file.getStatus() == FileStatus.DELETED_PENDING)
+                .forEach(file -> file.changeStatus(FileStatus.DELETED));
+    }
 }
