@@ -1,8 +1,8 @@
 package re.kr.icuh.icuhplatformadmin.service;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import re.kr.icuh.icuhplatformadmin.domain.Article;
 import re.kr.icuh.icuhplatformadmin.domain.ArticleStatus;
 import re.kr.icuh.icuhplatformadmin.domain.FileStatus;
@@ -91,5 +91,11 @@ public class ArticleService {
         article.getFiles().stream()
                 .filter(file -> file.getStatus() == FileStatus.DELETED_PENDING)
                 .forEach(file -> file.changeStatus(FileStatus.DELETED));
+    }
+
+    @Transactional(readOnly = true)
+    public List<ArticleListResponse> findUpdatedPendingArticles() {
+
+        return null;
     }
 }

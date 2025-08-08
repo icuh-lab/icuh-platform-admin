@@ -54,4 +54,9 @@ public class ArticleApiController {
     public void deleteApproveArticle(@PathVariable Long id) {
         articleService.deleteApproveArticle(id);
     }
+
+    @GetMapping("/articles/updated-pending")
+    public List<ArticleListResponse> findUpdatedPendingArticles() {
+        return articleService.findUpdatedPendingArticles();
+    }
 }
