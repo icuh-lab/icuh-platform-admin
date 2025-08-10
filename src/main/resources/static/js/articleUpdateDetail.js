@@ -6,19 +6,20 @@ function setActiveMenu() {
         item.classList.add('hover:bg-gray-700');
     });
 
-    // 현재 URL이 삭제 요청 관련 페이지이므로 삭제 요청 처리 메뉴 활성화
-    document.querySelector('a[href="/article/delete-list"]').classList.add('bg-gray-700');
+    // 현재 URL이 수정 요청 관련 페이지이므로 수정 요청 처리 메뉴 활성화
+    document.querySelector('a[href="/article/update-list"]').classList.add('bg-gray-700');
 
     // 빵부스러기(Breadcrumb) 링크도 수정
-    document.querySelector('ol li a').setAttribute('href', '/article/delete-list');
-    document.querySelector('ol li a').textContent = '삭제 요청 처리';
+    document.querySelector('ol li a').setAttribute('href', '/article/update-list');
+    document.querySelector('ol li a').textContent = '수정 요청 처리';
 }
 
+// 기존 DOMContentLoaded 이벤트 리스너에 setActiveMenu 함수 추가
 document.addEventListener('DOMContentLoaded', function() {
-
     // 메뉴 활성화 함수 호출
     setActiveMenu();
-
+    
+    // 기존 코드 유지
     // URL에서 게시글 ID 추출
     const articleId = extractArticleIdFromUrl();
 
@@ -96,11 +97,11 @@ async function fetchArticleDetail(articleId) {
         displayArticleDetail(article);
 
         // 등록 대기 중인 경우 승인/반려 버튼 표시
-        if (article.status === 'DELETED_PENDING') {
+        if (article.status === 'UPDATED_PENDING') {
             showActionButtons();
-            document.getElementById('breadcrumbStatus').textContent = '삭제 대기 중';
+            document.getElementById('breadcrumbStatus').textContent = '수정 대기 중';
         } else {
-            document.getElementById('breadcrumbStatus').textContent = '삭제 완료됨';
+            document.getElementById('breadcrumbStatus').textContent = '수정 완료됨';
         }
     } catch (error) {
         console.error('게시글 상세 정보를 가져오는 중 오류 발생:', error);
@@ -178,12 +179,12 @@ function showError(message) {
 // 상태에 따른 표시 텍스트 반환
 function getStatusDisplayText(status) {
     switch(status) {
-        case 'DELETED':
-            return '삭제 완료';
+        case 'UPDATED_APPROVED':
+            return '수정 완료';
         case 'REJECTED':
             return '거부됨';
-        case 'DELETED_PENDING':
-            return '삭제 대기중';
+        case 'UPDATED_PENDING':
+            return '수정 대기중';
         default:
             return status || '대기중';
     }
@@ -192,11 +193,11 @@ function getStatusDisplayText(status) {
 // 상태에 따른 클래스 반환
 function getStatusClass(status) {
     switch(status) {
-        case 'DELETED':
+        case 'UPDATED_APPROVED':
             return 'bg-green-100 text-green-800';
         case 'REJECTED':
             return 'bg-red-100 text-red-800';
-        case 'DELETED_PENDING':
+        case 'UPDATED_PENDING':
         default:
             return 'bg-yellow-100 text-yellow-800';
     }
@@ -226,7 +227,7 @@ function showActionButtons() {
 // 게시글 승인
 async function approveArticle(articleId) {
     try {
-        const response = await fetch(`/api/v1/admin/articles/${articleId}`, {
+        const response = await fetch(`/api/v1/admin/articles/update/${articleId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

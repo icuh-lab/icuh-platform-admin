@@ -22,13 +22,21 @@ public class ArticleController {
 		return "article/delete-list";
 	}
 
+    // 생성 요청 상세보기
 	@GetMapping("/article/detail/{id}")
 	public String articleDetail(@PathVariable("id") Long id) {
 		return "article/article-detail";
 	}
 
+    // 삭제 요청 상세보기
     @GetMapping("/article/delete-detail/{id}")
     public String articleDeleteDetail(@PathVariable("id") Long id) {
         return "article/article-delete-detail";
+    }
+
+    // 수정 요청 상세보기
+    @GetMapping("/article/update-detail/{id}")
+    public String articleUpdateDetail(@PathVariable("id") Long id) {
+        return "article/article-update-detail";
     }
 }

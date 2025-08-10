@@ -114,4 +114,36 @@ public class Article {
     public void changeStatus(ArticleStatus articleStatus) {
         this.status = articleStatus;
     }
+
+    public void updateArticle(ArticleEditRequest articleEditRequest) {
+        this.title = articleEditRequest.getTitle();
+        this.description = articleEditRequest.getDescription();
+        this.author = articleEditRequest.getAuthor();
+        this.authorOrganization = articleEditRequest.getAuthorOrganization();
+        this.department = articleEditRequest.getDepartment();
+        this.source = articleEditRequest.getSource();
+        this.updatedAt = LocalDateTime.now();
+        this.status = ArticleStatus.APPROVED;
+
+        // 기존 파일 모두 제거
+        this.files.clear();
+
+        // FileEditRequest를 FileEntity로 변환하여 추가
+        articleEditRequest.getFiles().forEach(fileEditRequest -> {
+            FileEntity fileEntity = FileEntity.builder()
+                    .article(this)
+                    .originalFilename(fileEditRequest.getOriginalFilename())
+                    .storedFilename(fileEditRequest.getStoredFilename())
+                    .filePath(fileEditRequest.getFilePath())
+                    .extension(fileEditRequest.getExtension())
+                    .fileSize(fileEditRequest.getFileSize())
+                    .build();
+
+            // 파일 상태 설정 (이전 상태를 유지하거나 APPROVED로 설정)
+            fileEntity.changeStatus(FileStatus.APPROVED);
+
+            // 파일 추가
+            this.addFile(fileEntity);
+        });
+    }
 }
