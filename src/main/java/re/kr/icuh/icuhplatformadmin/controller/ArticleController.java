@@ -9,23 +9,23 @@ public class ArticleController {
 
 	@GetMapping("/article/create-list")
 	public String createList() {
-		return "article/create-list";
+		return "article/article-create-list";
 	}
 
 	@GetMapping("/article/update-list")
 	public String updateList() {
-		return "article/update-list";
+		return "article/article-update-list";
 	}
 
 	@GetMapping("/article/delete-list")
 	public String deleteList() {
-		return "article/delete-list";
+		return "article/article-delete-list";
 	}
 
     // 생성 요청 상세보기
 	@GetMapping("/article/detail/{id}")
 	public String articleDetail(@PathVariable("id") Long id) {
-		return "article/article-detail";
+		return "article/article-create-detail";
 	}
 
     // 삭제 요청 상세보기

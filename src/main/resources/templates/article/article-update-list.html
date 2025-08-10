@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>게시글 삭제 대기</title>
-	<script src="/js/productDeleteRegistration.js" defer></script>
+	<title>게시글 수정 대기</title>
+	<script src="/js/article-update-list.js" defer></script>
 	<script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
@@ -24,12 +24,12 @@
 						</a>
 					</li>
 					<li>
-						<a href="/article/update-list" class="pl-4 py-1 hover:bg-gray-700 rounded flex items-center hover:bg-gray-600">
+						<a href="/article/update-list" class="pl-4 py-1 bg-gray-700 rounded flex items-center hover:bg-gray-600">
 							<i class="icon-cog mr-2"></i> 수정 요청 처리
 						</a>
 					</li>
 					<li>
-						<a href="/article/delete-list" class="pl-4 py-1 bg-gray-700 rounded flex items-center hover:bg-gray-600">
+						<a href="/article/delete-list" class="pl-4 py-1 hover:bg-gray-700 rounded flex items-center hover:bg-gray-600">
 							<i class="icon-cog mr-2"></i> 삭제 요청 처리
 						</a>
 					</li>
@@ -41,7 +41,7 @@
 	<main class="ml-[250px] flex-1 p-8">
 		<header class="mb-8">
 			<div class="flex justify-between items-center mb-6">
-				<h1 class="text-2xl font-bold text-gray-800">삭제 요청 처리 현황</h1>
+				<h1 class="text-2xl font-bold text-gray-800">수정 요청 처리 현황</h1>
 				<div class="flex items-center space-x-4">
 					<button id="loginBtn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
 						로그인
@@ -55,14 +55,13 @@
 			<!-- 탭 네비게이션 -->
 			<div class="flex border-b border-gray-200 mb-6">
 				<button id="pendingTab" class="px-6 py-3 border-b-2 border-blue-500 text-blue-500 font-medium">
-					삭제 대기 중
+					처리 대기 중
 				</button>
 				<button id="approvedTab" class="px-6 py-3 text-gray-500 hover:text-gray-700">
-					삭제 완료됨
+					처리 완료됨
 				</button>
 			</div>
 		</header>
-		
 		
 		<div class="bg-white p-6 rounded-lg shadow-sm">
 			<div class="mb-6">
