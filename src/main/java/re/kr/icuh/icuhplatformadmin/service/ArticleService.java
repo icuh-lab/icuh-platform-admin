@@ -95,7 +95,10 @@ public class ArticleService {
 
     @Transactional(readOnly = true)
     public List<ArticleListResponse> findUpdatedPendingArticles() {
+        List<Article> updatedPendingArticles = articleQueryRepository.findUpdatedPendingArticles();
 
-        return null;
+        return updatedPendingArticles.stream()
+                .map(ArticleListResponse::fromEntity)
+                .collect(Collectors.toList());
     }
 }

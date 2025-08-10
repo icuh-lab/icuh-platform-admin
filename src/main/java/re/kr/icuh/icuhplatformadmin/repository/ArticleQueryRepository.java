@@ -106,4 +106,19 @@ public class ArticleQueryRepository {
                 .orderBy(article.createdAt.desc())
                 .fetch();
     }
+
+    public List<Article> findUpdatedPendingArticles() {
+        QArticle article = QArticle.article;
+        BooleanBuilder builder = new BooleanBuilder();
+
+        builder.and(article.status.eq(ArticleStatus.UPDATED_PENDING));
+
+        return queryFactory
+                .selectFrom(article)
+                .leftJoin(article.documentType).fetchJoin()
+                .leftJoin(article.subjectDomain).fetchJoin()
+                .where(builder)
+                .orderBy(article.createdAt.desc())
+                .fetch();
+    }
 }
