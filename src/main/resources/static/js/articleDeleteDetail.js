@@ -1,4 +1,24 @@
+// 현재 페이지에 맞게 메뉴 활성화하는 함수
+function setActiveMenu() {
+    // 모든 메뉴 항목에서 활성 클래스 제거
+    document.querySelectorAll('nav ul li a').forEach(item => {
+        item.classList.remove('bg-gray-700');
+        item.classList.add('hover:bg-gray-700');
+    });
+
+    // 현재 URL이 삭제 요청 관련 페이지이므로 삭제 요청 처리 메뉴 활성화
+    document.querySelector('a[href="/article/delete-list"]').classList.add('bg-gray-700');
+
+    // 빵부스러기(Breadcrumb) 링크도 수정
+    document.querySelector('ol li a').setAttribute('href', '/article/delete-list');
+    document.querySelector('ol li a').textContent = '삭제 요청 처리';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+
+    // 메뉴 활성화 함수 호출
+    setActiveMenu();
+
     // URL에서 게시글 ID 추출
     const articleId = extractArticleIdFromUrl();
 
@@ -78,9 +98,9 @@ async function fetchArticleDetail(articleId) {
         // 등록 대기 중인 경우 승인/반려 버튼 표시
         if (article.status === 'DELETED_PENDING') {
             showActionButtons();
-            document.getElementById('breadcrumbStatus').textContent = '등록 대기 중';
+            document.getElementById('breadcrumbStatus').textContent = '삭제 대기 중';
         } else {
-            document.getElementById('breadcrumbStatus').textContent = '등록 완료됨';
+            document.getElementById('breadcrumbStatus').textContent = '삭제 완료됨';
         }
     } catch (error) {
         console.error('게시글 상세 정보를 가져오는 중 오류 발생:', error);

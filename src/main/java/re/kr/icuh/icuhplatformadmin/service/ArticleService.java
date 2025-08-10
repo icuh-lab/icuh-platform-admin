@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import re.kr.icuh.icuhplatformadmin.domain.Article;
+import re.kr.icuh.icuhplatformadmin.domain.ArticleEditRequest;
 import re.kr.icuh.icuhplatformadmin.domain.ArticleStatus;
 import re.kr.icuh.icuhplatformadmin.domain.FileStatus;
 import re.kr.icuh.icuhplatformadmin.dto.ArticleListResponse;
@@ -98,6 +99,27 @@ public class ArticleService {
         List<Article> updatedPendingArticles = articleQueryRepository.findUpdatedPendingArticles();
 
         return updatedPendingArticles.stream()
+                .map(ArticleListResponse::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void updateApprovedArticle(Long id) {
+        // 원본 글 select
+        Article article = articleQueryRepository.findArticle(id);
+
+        // 업데이트 될 글 select
+        ArticleEditRequest articleEditRequest = articleQueryRepository.findUpdatedRequestArticle(id);
+
+        // 덮어쓰기
+        article.updateArticle(articleEditRequest);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ArticleListResponse> findUpdatedApprovedArticles() {
+        List<Article> updatedApprovedArticles = articleQueryRepository.findUpdatedApprovedArticles();
+
+        return updatedApprovedArticles.stream()
                 .map(ArticleListResponse::fromEntity)
                 .collect(Collectors.toList());
     }

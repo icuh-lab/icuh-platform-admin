@@ -59,4 +59,14 @@ public class ArticleApiController {
     public List<ArticleListResponse> findUpdatedPendingArticles() {
         return articleService.findUpdatedPendingArticles();
     }
+
+    @GetMapping("/articles/updated-approved")
+    public List<ArticleListResponse> findUpdatedApprovedArticles() {
+        return articleService.findUpdatedApprovedArticles();
+    }
+
+    @PatchMapping("/articles/update/{id}")
+    public void updateApproveArticle(@PathVariable Long id) {
+        articleService.updateApprovedArticle(id);
+    }
 }

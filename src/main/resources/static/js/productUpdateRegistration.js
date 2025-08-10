@@ -171,7 +171,7 @@ function displayArticles(articles, page = 1, itemsPerPage = 10) {
 // 상태에 따른 표시 텍스트 반환
 function getStatusDisplayText(status) {
     switch(status) {
-        case 'UPDATED':
+        case 'UPDATED_APPROVED':
             return '수정 완료';
         case 'REJECTED':
             return '거부됨';
@@ -185,7 +185,7 @@ function getStatusDisplayText(status) {
 // 상태에 따른 클래스 반환
 function getStatusClass(status) {
     switch(status) {
-        case 'UPDATED':
+        case 'UPDATED_APPROVED':
             return 'bg-green-100 text-green-800';
         case 'REJECTED':
             return 'bg-red-100 text-red-800';
