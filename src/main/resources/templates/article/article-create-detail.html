@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>게시글 상세보기</title>
-    <script src="/js/article-delete-detail.js" defer></script>
+    <script src="/js/article-create-detail.js" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
@@ -13,7 +13,7 @@
             <h1 class="text-xl font-bold">ICUH - 빅데이터 플랫폼</h1>
             <p class="text-sm text-gray-400">관리자 페이지</p>
         </div>
-
+        
         <nav>
             <div class="mb-6">
                 <p class="text-gray-400 text-sm mb-2">게시글 관리</p>
@@ -37,7 +37,7 @@
             </div>
         </nav>
     </aside>
-
+    
     <main class="ml-[250px] flex-1 p-8">
         <header class="mb-8">
             <div class="flex justify-between items-center mb-6">
@@ -51,7 +51,7 @@
                     </button>
                 </div>
             </div>
-
+            
             <nav class="flex mb-6" aria-label="Breadcrumb">
                 <ol class="flex items-center space-x-2 text-sm text-gray-500">
                     <li>
@@ -66,7 +66,7 @@
                 </ol>
             </nav>
         </header>
-
+        
         <div class="bg-white p-6 rounded-lg shadow-sm mb-6" id="articleDetail">
             <!-- 게시글 상세 정보 로딩 중 -->
             <div class="flex justify-center items-center py-8" id="loadingIndicator">
@@ -76,14 +76,14 @@
                 </svg>
                 <span class="ml-2 text-gray-600">게시글 정보를 불러오는 중입니다...</span>
             </div>
-
+            
             <!-- 게시글 상세 정보 (JavaScript로 채워짐) -->
             <div id="articleContent" class="hidden">
                 <div class="flex justify-between items-center mb-6">
                     <h2 id="articleTitle" class="text-xl font-bold"></h2>
                     <span id="articleStatus" class="px-3 py-1 text-xs font-semibold rounded-full"></span>
                 </div>
-
+                
                 <div class="grid grid-cols-2 gap-x-6 gap-y-4 mb-8">
                     <div>
                         <h3 class="text-sm font-medium text-gray-500 mb-1">작성자</h3>
@@ -110,17 +110,17 @@
                         <p id="articleSubjectDomain" class="text-gray-800"></p>
                     </div>
                 </div>
-
+                
                 <div class="mb-8">
                     <h3 class="text-sm font-medium text-gray-500 mb-2">요약</h3>
                     <div id="articleSummary" class="bg-gray-50 p-4 rounded text-gray-800"></div>
                 </div>
-
+                
                 <div class="mb-8">
                     <h3 class="text-sm font-medium text-gray-500 mb-2">본문</h3>
                     <div id="articleContentText" class="bg-gray-50 p-4 rounded text-gray-800"></div>
                 </div>
-
+                
                 <div class="mb-8" id="attachmentSection">
                     <h3 class="text-sm font-medium text-gray-500 mb-2">첨부파일</h3>
                     <ul id="attachmentList" class="bg-gray-50 p-4 rounded">
@@ -128,13 +128,13 @@
                     </ul>
                 </div>
             </div>
-
+            
             <!-- 오류 메시지 -->
             <div id="errorMessage" class="hidden text-center py-8 text-red-500">
                 게시글 정보를 불러오는 중 오류가 발생했습니다. 나중에 다시 시도해주세요.
             </div>
         </div>
-
+        
         <!-- 버튼 영역 (등록 대기 중인 경우에만 표시) -->
         <div id="actionButtons" class="flex justify-end space-x-4 mt-6 hidden">
             <button id="approveButton" class="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600 font-medium">
@@ -144,7 +144,7 @@
                 반려하기
             </button>
         </div>
-
+        
         <!-- 목록으로 돌아가기 버튼 -->
         <div class="flex justify-center mt-8">
             <button id="backButton" class="px-6 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
