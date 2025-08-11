@@ -1,8 +1,7 @@
 package re.kr.icuh.icuhplatformadmin.dto;
 
-import re.kr.icuh.icuhplatformadmin.domain.Article;
-import re.kr.icuh.icuhplatformadmin.domain.ArticleStatus;
-import re.kr.icuh.icuhplatformadmin.domain.FileStatus;
+import re.kr.icuh.icuhplatformadmin.domain.article.Article;
+import re.kr.icuh.icuhplatformadmin.domain.article.ArticleStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,11 +1,10 @@
-package re.kr.icuh.icuhplatformadmin.domain;
+package re.kr.icuh.icuhplatformadmin.domain.file;
 
-public enum ArticleStatus {
+public enum FileStatus {
     PENDING,
     APPROVED,
     REJECTED,
     DELETED,
     UPDATED_PENDING,
-    UPDATED_APPROVED,
     DELETED_PENDING
 }

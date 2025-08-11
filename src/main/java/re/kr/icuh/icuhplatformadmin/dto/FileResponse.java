@@ -1,6 +1,6 @@
 package re.kr.icuh.icuhplatformadmin.dto;
 
-import re.kr.icuh.icuhplatformadmin.domain.FileEntity;
+import re.kr.icuh.icuhplatformadmin.domain.file.FileEntity;
 
 import java.time.LocalDateTime;
 

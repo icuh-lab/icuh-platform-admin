@@ -1,6 +1,6 @@
 package re.kr.icuh.icuhplatformadmin.dto;
 
-import re.kr.icuh.icuhplatformadmin.domain.DocumentType;
+import re.kr.icuh.icuhplatformadmin.domain.article.DocumentType;
 
 public record DocumentTypeResponse(
         Long id,

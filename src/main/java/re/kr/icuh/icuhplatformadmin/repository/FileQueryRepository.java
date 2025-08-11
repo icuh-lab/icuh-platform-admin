@@ -2,7 +2,7 @@ package re.kr.icuh.icuhplatformadmin.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
-import re.kr.icuh.icuhplatformadmin.domain.QFileEntity;
+import re.kr.icuh.icuhplatformadmin.domain.file.QFileEntity;
 
 @Repository
 public class FileQueryRepository {

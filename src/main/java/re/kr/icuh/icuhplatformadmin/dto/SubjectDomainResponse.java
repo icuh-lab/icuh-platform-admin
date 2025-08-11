@@ -1,6 +1,6 @@
 package re.kr.icuh.icuhplatformadmin.dto;
 
-import re.kr.icuh.icuhplatformadmin.domain.SubjectDomain;
+import re.kr.icuh.icuhplatformadmin.domain.article.SubjectDomain;
 
 public record SubjectDomainResponse(
         Long id,

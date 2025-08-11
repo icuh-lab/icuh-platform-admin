@@ -4,7 +4,12 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
-import re.kr.icuh.icuhplatformadmin.domain.*;
+import re.kr.icuh.icuhplatformadmin.domain.article.Article;
+import re.kr.icuh.icuhplatformadmin.domain.article.ArticleEditRequest;
+import re.kr.icuh.icuhplatformadmin.domain.article.ArticleStatus;
+import re.kr.icuh.icuhplatformadmin.domain.article.QArticle;
+import re.kr.icuh.icuhplatformadmin.domain.article.QArticleEditRequest;
+import re.kr.icuh.icuhplatformadmin.domain.file.QFileEntity;
 
 import java.util.List;
 

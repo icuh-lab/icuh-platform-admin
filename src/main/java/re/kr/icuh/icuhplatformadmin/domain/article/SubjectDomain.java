@@ -1,4 +1,4 @@
-package re.kr.icuh.icuhplatformadmin.domain;
+package re.kr.icuh.icuhplatformadmin.domain.article;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

@@ -1,4 +1,4 @@
-package re.kr.icuh.icuhplatformadmin.domain;
+package re.kr.icuh.icuhplatformadmin.domain.file;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import re.kr.icuh.icuhplatformadmin.domain.article.Article;
 
 import java.time.LocalDateTime;
 

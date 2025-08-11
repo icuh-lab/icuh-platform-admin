@@ -1,10 +1,12 @@
-package re.kr.icuh.icuhplatformadmin.domain;
+package re.kr.icuh.icuhplatformadmin.domain.article;
 
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.testcontainers.shaded.com.google.common.hash.Hashing;
+import re.kr.icuh.icuhplatformadmin.domain.file.FileEntity;
+import re.kr.icuh.icuhplatformadmin.domain.file.FileStatus;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
