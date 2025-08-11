@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import re.kr.icuh.icuhplatformadmin.article.api.response.ArticleListResponse;
 import re.kr.icuh.icuhplatformadmin.article.api.response.ArticlePendingResponse;
 import re.kr.icuh.icuhplatformadmin.article.application.*;
-import re.kr.icuh.icuhplatformadmin.service.ArticleService;
 
 import java.util.List;
 
