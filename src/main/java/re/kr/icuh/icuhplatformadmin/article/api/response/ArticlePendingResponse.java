@@ -3,6 +3,7 @@ package re.kr.icuh.icuhplatformadmin.article.api.response;
 import re.kr.icuh.icuhplatformadmin.article.domain.Article;
 import re.kr.icuh.icuhplatformadmin.article.domain.ArticleStatus;
 import re.kr.icuh.icuhplatformadmin.file.api.response.FileResponse;
+import re.kr.icuh.icuhplatformadmin.file.domain.FileEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,7 +22,7 @@ public record ArticlePendingResponse(
         Integer views,
         DocumentTypeResponse classification,
         SubjectDomainResponse serviceType,
-        List<FileResponse> files
+        List<FileResponseWithDownloadInfo> files
 ) {
     public static ArticlePendingResponse fromEntity(Article article) {
         return new ArticlePendingResponse(
@@ -38,8 +39,29 @@ public record ArticlePendingResponse(
                 DocumentTypeResponse.fromEntity(article.getDocumentType()),
                 SubjectDomainResponse.fromEntity(article.getSubjectDomain()),
                 article.getFiles().stream()
-                        .map(FileResponse::fromEntity)
+                        .map(FileResponseWithDownloadInfo::fromEntity)
                         .collect(Collectors.toList())
+        );
+    }
+}
+
+// 파일 다운로드 정보가 포함된 FileResponse 클래스
+record FileResponseWithDownloadInfo(
+        Long id,
+        String originalFilename,
+        String extension,
+        Long fileSize,
+        String filePath,
+        String downloadUrl
+) {
+    public static FileResponseWithDownloadInfo fromEntity(FileEntity file) {
+        return new FileResponseWithDownloadInfo(
+                file.getId(),
+                file.getOriginalFilename(),
+                file.getExtension(),
+                file.getFileSize(),
+                file.getFilePath(),
+                "/api/v1/files/" + file.getId() + "/download"
         );
     }
 }

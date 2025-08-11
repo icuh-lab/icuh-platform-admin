@@ -24,8 +24,8 @@ public record ArticleApprovedResponse(
         SubjectDomainResponse serviceType,
         List<FileResponse> files
 ) {
-    public static ArticlePendingResponse fromEntity(Article article) {
-        return new ArticlePendingResponse(
+    public static ArticleApprovedResponse fromEntity(Article article) {
+        return new ArticleApprovedResponse(
                 article.getId(),
                 article.getTitle(),
                 article.getDescription(),

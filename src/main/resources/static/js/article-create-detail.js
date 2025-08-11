@@ -137,7 +137,9 @@ function displayArticleDetail(article) {
                 </svg>
                 ${file.originalFilename || '첨부파일'}
             `;
-            
+
+            a.href = `http://localhost:8080${file.downloadUrl}`;
+
             li.appendChild(a);
             attachmentList.appendChild(li);
         });
