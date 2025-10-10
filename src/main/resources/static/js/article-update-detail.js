@@ -87,7 +87,7 @@ function extractArticleIdFromUrl() {
 // 게시글 상세 정보 가져오기
 async function fetchArticleDetail(articleId) {
     try {
-        const response = await fetch(`/api/v1/admin/articles/${articleId}`);
+        const response = await fetch(`/api/v1/admin/articles/update-detail/${articleId}`);
 
         if (!response.ok) {
             throw new Error('서버 응답 오류: ' + response.status);
@@ -105,7 +105,7 @@ async function fetchArticleDetail(articleId) {
         }
     } catch (error) {
         console.error('게시글 상세 정보를 가져오는 중 오류 발생:', error);
-        showError('게시글 정보를 불러오는 중 오류가 발생했습니다.');
+        // showError('게시글 정보를 불러오는 중 오류가 발생했습니다.');
     }
 }
 
@@ -159,7 +159,7 @@ function displayArticleDetail(article) {
                 ${file.originalFilename || '첨부파일'}
             `;
 
-            a.href = `http://localhost:8080${file.downloadUrl}`;
+            a.href = `http://localhost:8081${file.downloadUrl}`;
 
             li.appendChild(a);
             attachmentList.appendChild(li);

@@ -89,4 +89,7 @@ public class ArticleEditRequest {
         return Hashing.sha256().hashString(tempPassword, StandardCharsets.UTF_8).toString();
     }
 
+    public void changeStatus(ArticleStatus articleStatus) {
+        this.status = articleStatus;
+    }
 }

@@ -125,7 +125,7 @@ public class Article {
         this.department = articleEditRequest.getDepartment();
         this.source = articleEditRequest.getSource();
         this.updatedAt = LocalDateTime.now();
-        this.status = ArticleStatus.APPROVED;
+        this.status = ArticleStatus.UPDATED_APPROVED;
 
         // 기존 파일 모두 제거
         this.files.clear();

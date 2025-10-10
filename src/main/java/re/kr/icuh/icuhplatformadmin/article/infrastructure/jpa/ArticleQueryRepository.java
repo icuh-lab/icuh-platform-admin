@@ -95,32 +95,29 @@ public class ArticleQueryRepository {
                 .fetch();
     }
 
-    public List<Article> findUpdatedPendingArticles() {
-        QArticle article = QArticle.article;
+    public List<ArticleEditRequest> findUpdatedPendingArticles() {
+        QArticleEditRequest articleEditRequest = QArticleEditRequest.articleEditRequest;
         BooleanBuilder builder = new BooleanBuilder();
 
-        builder.and(article.status.eq(ArticleStatus.UPDATED_PENDING));
+        builder.and(articleEditRequest.status.eq(ArticleStatus.UPDATED_PENDING));
 
         return queryFactory
-                .selectFrom(article)
-                .leftJoin(article.documentType).fetchJoin()
-                .leftJoin(article.subjectDomain).fetchJoin()
+                .selectFrom(articleEditRequest)
+                .leftJoin(articleEditRequest.documentType).fetchJoin()
+                .leftJoin(articleEditRequest.subjectDomain).fetchJoin()
                 .where(builder)
-                .orderBy(article.createdAt.desc())
+                .orderBy(articleEditRequest.createdAt.desc())
                 .fetch();
     }
 
     public ArticleEditRequest findUpdatedRequestArticle(Long id) {
         QArticleEditRequest articleEditRequest = QArticleEditRequest.articleEditRequest;
-        BooleanBuilder builder = new BooleanBuilder();
-
-        builder.and(articleEditRequest.article.id.eq(id));
-        builder.and(articleEditRequest.status.eq(ArticleStatus.UPDATED_PENDING));
+        QArticle article = QArticle.article;
 
         return queryFactory
                 .selectFrom(articleEditRequest)
-                .leftJoin(articleEditRequest.article).fetchJoin()
-                .where(builder)
+                .leftJoin(articleEditRequest.article, article).fetchJoin()
+                .where(articleEditRequest.id.eq(id))
                 .fetchOne();
     }
 
@@ -137,5 +134,19 @@ public class ArticleQueryRepository {
                 .where(builder)
                 .orderBy(article.createdAt.desc())
                 .fetch();
+    }
+
+    // 수정 필요
+    public ArticleEditRequest findUpdatePendingArticle(Long id) {
+        QArticleEditRequest articleEditRequest = QArticleEditRequest.articleEditRequest;
+        BooleanBuilder builder = new BooleanBuilder();
+
+        builder.and(articleEditRequest.id.eq(id));
+        builder.and(articleEditRequest.status.eq(ArticleStatus.UPDATED_PENDING));
+
+        return queryFactory
+                .selectFrom(articleEditRequest)
+                .where(builder)
+                .fetchOne();
     }
 }

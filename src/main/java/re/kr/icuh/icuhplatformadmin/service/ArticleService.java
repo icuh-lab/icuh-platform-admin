@@ -94,14 +94,14 @@ public class ArticleService {
                 .forEach(file -> file.changeStatus(FileStatus.DELETED));
     }
 
-    @Transactional(readOnly = true)
-    public List<ArticleListResponse> findUpdatedPendingArticles() {
-        List<Article> updatedPendingArticles = articleQueryRepository.findUpdatedPendingArticles();
-
-        return updatedPendingArticles.stream()
-                .map(ArticleListResponse::fromEntity)
-                .collect(Collectors.toList());
-    }
+//    @Transactional(readOnly = true)
+//    public List<ArticleListResponse> findUpdatedPendingArticles() {
+//        List<Article> updatedPendingArticles = articleQueryRepository.findUpdatedPendingArticles();
+//
+//        return updatedPendingArticles.stream()
+//                .map(ArticleListResponse::fromEntity)
+//                .collect(Collectors.toList());
+//    }
 
     @Transactional
     public void updateApprovedArticle(Long id) {
