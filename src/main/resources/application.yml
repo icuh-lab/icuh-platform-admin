@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8082
 
 spring:
   datasource:
@@ -22,5 +22,5 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
 
-  config:
-    import: application-private.yml
+#  config:
+#    import: application-private.yml
