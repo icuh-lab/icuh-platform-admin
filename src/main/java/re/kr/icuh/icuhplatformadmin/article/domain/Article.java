@@ -123,9 +123,12 @@ public class Article {
         this.author = articleEditRequest.getAuthor();
         this.authorOrganization = articleEditRequest.getAuthorOrganization();
         this.department = articleEditRequest.getDepartment();
-        this.source = articleEditRequest.getSource();
         this.updatedAt = LocalDateTime.now();
         this.status = ArticleStatus.UPDATED_APPROVED;
+        this.views = articleEditRequest.getViews();
+        this.subjectDomain = articleEditRequest.getSubjectDomain();
+        this.documentType = articleEditRequest.getDocumentType();
+        this.source = articleEditRequest.getSource();
 
         // 기존 파일 모두 제거
         this.files.clear();
