@@ -2,7 +2,6 @@ package re.kr.icuh.icuhplatformadmin.article.api.response;
 
 import re.kr.icuh.icuhplatformadmin.article.domain.Article;
 import re.kr.icuh.icuhplatformadmin.article.domain.ArticleStatus;
-import re.kr.icuh.icuhplatformadmin.file.api.response.FileResponse;
 import re.kr.icuh.icuhplatformadmin.file.domain.FileEntity;
 
 import java.time.LocalDateTime;
@@ -61,7 +60,7 @@ record FileResponseWithDownloadInfo(
                 file.getExtension(),
                 file.getFileSize(),
                 file.getFilePath(),
-                "/api/v1/files/" + file.getId() + "/download"
+                "/api/v1/multipart-upload/files/" + file.getId() + "/download"
         );
     }
 }
