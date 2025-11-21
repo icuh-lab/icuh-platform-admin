@@ -80,7 +80,7 @@ record FileEditResponseWithDownloadInfo(
                 file.getExtension(),
                 file.getFileSize(),
                 file.getFilePath(),
-                "/api/v1/update/files/" + file.getId() + "/download"
+                "/api/v1/multipart-upload/update/files/" + file.getId() + "/download"
         );
     }
 }
