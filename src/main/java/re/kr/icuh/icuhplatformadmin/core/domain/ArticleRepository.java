@@ -1,13 +1,14 @@
 package re.kr.icuh.icuhplatformadmin.core.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
 import java.util.List;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
+    @Query("SELECT a FROM Article a WHERE a.status = :status ORDER BY a.createdAt DESC")
     List<Article> findArticlesByStatusOrderByCreatedAtDesc(ArticleStatus status);
 }

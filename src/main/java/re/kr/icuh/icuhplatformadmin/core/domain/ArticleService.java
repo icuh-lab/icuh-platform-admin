@@ -14,11 +14,9 @@ public class ArticleService {
         this.articleFinder = articleFinder;
     }
 
-    public List<ArticleListResponse> findArticles(String status) {
-        if (status.equals(ArticleStatus.PENDING.toString())) {
-            return articleFinder.findArticleByStatus(ArticleStatus.PENDING);
-        }
-        return articleFinder.findArticleByStatus(ArticleStatus.APPROVED);
+    // status 값에 따라 출력되는 내용이 다르게 리펙토링 해야함
+    public List<ArticleListResponse> findArticles(ArticleStatus status) {
+        return articleFinder.findArticleByStatus(status);
     }
 
     public void updateArticleStatus(Long articleId) {

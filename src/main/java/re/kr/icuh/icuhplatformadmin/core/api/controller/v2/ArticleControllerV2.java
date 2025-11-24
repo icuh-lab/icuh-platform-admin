@@ -3,6 +3,7 @@ package re.kr.icuh.icuhplatformadmin.core.api.controller.v2;
 import org.springframework.web.bind.annotation.*;
 import re.kr.icuh.icuhplatformadmin.core.api.controller.v1.response.ArticleListResponse;
 import re.kr.icuh.icuhplatformadmin.core.domain.ArticleService;
+import re.kr.icuh.icuhplatformadmin.core.domain.ArticleStatus;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class ArticleControllerV2 {
 
     // 여기서 분기처리를 할 필요가 있나?..서빙하는 레이어인데?, 코어한 비지니스 로직은 아니지만 그렇다고 DB 예외 처리는 아니니 서비스 레이어에 작성해보자
     @GetMapping("/api/v2/articles")
-    public List<ArticleListResponse> findArticles(@RequestParam(required = false) String status) {
+    public List<ArticleListResponse> findArticles(@RequestParam(required = false) ArticleStatus status) {
         return articleService.findArticles(status);
     }
 
