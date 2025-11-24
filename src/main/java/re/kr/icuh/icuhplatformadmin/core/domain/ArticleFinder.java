@@ -15,9 +15,9 @@ public class ArticleFinder {
         this.articleRepository = articleRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<ArticleListResponse> findArticleByStatus(ArticleStatus status) {
-
-        List<ArticleListResponse> articleListResponses = articleRepository.findArticlesByStatus(status)
+        List<ArticleListResponse> articleListResponses = articleRepository.findArticlesByStatusOrderByCreatedAtDesc(status)
                 .stream()
                 .map(ArticleListResponse::fromEntity)
                 .toList();
