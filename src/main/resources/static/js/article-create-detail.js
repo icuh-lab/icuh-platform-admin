@@ -138,7 +138,7 @@ function displayArticleDetail(article) {
                 ${file.originalFilename || '첨부파일'}
             `;
 
-            a.href = `http://localhost:8080${file.downloadUrl}`;
+            a.href = `http://localhost:8081${file.downloadUrl}`;
 
             li.appendChild(a);
             attachmentList.appendChild(li);
@@ -208,8 +208,8 @@ function showActionButtons() {
 // 게시글 승인
 async function approveArticle(articleId) {
     try {
-        const response = await fetch(`/api/v1/admin/articles/${articleId}`, {
-            method: 'POST',
+        const response = await fetch(`/api/v2/articles/${articleId}`, {
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             }
