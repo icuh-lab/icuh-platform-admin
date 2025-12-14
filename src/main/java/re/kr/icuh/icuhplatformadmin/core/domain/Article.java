@@ -5,6 +5,9 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.testcontainers.shaded.com.google.common.hash.Hashing;
+import re.kr.icuh.icuhplatformadmin.core.api.controller.v2.NewFileRequestJsonConverter;
+import re.kr.icuh.icuhplatformadmin.core.api.controller.v2.UpdateArticleRequestJsonConverter;
+import re.kr.icuh.icuhplatformadmin.core.api.controller.v2.request.UpdateArticleRequest;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -75,6 +78,13 @@ public class Article {
     @Column(name = "reject_reason")
     private String rejectReason;
 
+    @Column(name = "pending_update")
+    @Convert(converter = UpdateArticleRequestJsonConverter.class)
+    private UpdateArticleRequest pendingUpdate;
+
+    @Column(name = "pending_file_update")
+    @Convert(converter = NewFileRequestJsonConverter.class)
+    private List<UpdateArticleRequest.NewFileRequest> pendingFileUpdate;
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FileEntity> files = new ArrayList<>();
