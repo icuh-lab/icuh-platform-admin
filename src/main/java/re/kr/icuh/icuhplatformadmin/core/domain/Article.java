@@ -72,11 +72,15 @@ public class Article {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
+    @Column(name = "reject_reason")
+    private String rejectReason;
+
+
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FileEntity> files = new ArrayList<>();
 
     @Builder
-    public Article(String title, String description, String author, String authorOrganization, String department, String tempPassword, Integer views, ArticleStatus status, DocumentType documentType, SubjectDomain subjectDomain, String source, Boolean isDeleted, LocalDateTime deletedAt) {
+    public Article(String title, String description, String author, String authorOrganization, String department, String tempPassword, Integer views, ArticleStatus status, DocumentType documentType, SubjectDomain subjectDomain, String source, Boolean isDeleted, LocalDateTime deletedAt, String rejectReason) {
         this.title = title;
         this.description = description;
         this.author = author;
@@ -90,6 +94,7 @@ public class Article {
         this.source = source;
         this.isDeleted = isDeleted;
         this.deletedAt = deletedAt;
+        this.rejectReason = rejectReason;
     }
 
     public String sha256Encode(String tempPassword) {
@@ -121,6 +126,10 @@ public class Article {
 
     public void changeStatus(ArticleStatus articleStatus) {
         this.status = articleStatus;
+    }
+
+    public void setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason;
     }
 
     public void updateArticle(ArticleEditRequest articleEditRequest) {
