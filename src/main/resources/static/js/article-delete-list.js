@@ -59,7 +59,7 @@ function setActiveTab(tabType) {
 async function fetchPendingArticles() {
     try {
         console.log('삭제 대기 중 게시글 요청 시작');
-        const response = await fetch('/api/v1/admin/articles/delete-list');
+        const response = await fetch('/api/v2/articles?status=DELETED');
 
         if (!response.ok) {
             throw new Error('서버 응답 오류: ' + response.status);

@@ -231,7 +231,7 @@ async function approveArticle(articleId) {
 // 게시글 반려
 async function rejectArticle(articleId, reason) {
     try {
-        const response = await fetch(`/api/v1/admin/articles/${articleId}/reject`, {
+        const response = await fetch(`/api/v2/articles/${articleId}/reject`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
