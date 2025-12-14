@@ -59,7 +59,7 @@ function setActiveTab(tabType) {
 async function fetchPendingArticles() {
     try {
         console.log('수정 대기 중 게시글 요청 시작');
-        const response = await fetch('/api/v1/admin/articles/updated-pending');
+        const response = await fetch('/api/v2/pending-articles');
 
         if (!response.ok) {
             throw new Error('서버 응답 오류: ' + response.status);
@@ -80,7 +80,7 @@ async function fetchPendingArticles() {
 async function fetchApprovedArticles() {
     try {
         console.log('수정 완료됨 게시글 요청 시작');
-        const response = await fetch('/api/v1/admin/articles/updated-approved');
+        const response = await fetch('/api/v2/articles?status=APPROVED&type=UPDATED');
 
         if (!response.ok) {
             throw new Error('서버 응답 오류: ' + response.status);

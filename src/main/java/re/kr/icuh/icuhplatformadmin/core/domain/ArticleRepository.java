@@ -11,4 +11,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query("SELECT a FROM Article a WHERE a.status = :status ORDER BY a.createdAt DESC")
     List<Article> findArticlesByStatusOrderByCreatedAtDesc(ArticleStatus status);
+
+    @Query("SELECT a FROM Article a WHERE a.status = 'APPROVED' AND a.pendingUpdate IS NOT NULL ORDER BY a.createdAt DESC")
+    List<Article> findPendingUpdateArticle();
 }
