@@ -32,4 +32,23 @@ public class ArticleFinder {
 
         savedArticle.changeStatus(ArticleStatus.APPROVED);
     }
+
+    @Transactional
+    public void rejectArticle(Long articleId, String reason) {
+        Article savedArticle = articleRepository.findById(articleId)
+                .orElseThrow(() -> new IllegalArgumentException("Article not found"));
+
+        savedArticle.changeStatus(ArticleStatus.REJECTED);
+        savedArticle.setRejectReason(reason);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ArticleListResponse> pendingUpdateArticles() {
+        List<ArticleListResponse> pendingUpdateArticleListResponse = articleRepository.findPendingUpdateArticle()
+                .stream()
+                .map(ArticleListResponse::fromEntity)
+                .toList();
+
+        return pendingUpdateArticleListResponse;
+    }
 }

@@ -22,4 +22,12 @@ public class ArticleService {
     public void updateArticleStatus(Long articleId) {
         articleFinder.updateArticleStatus(articleId);
     }
+
+    public void rejectArticle(Long articleId, String reason) {
+        articleFinder.rejectArticle(articleId, reason);
+    }
+
+    public List<ArticleListResponse> findPendingArticles() {
+        return articleFinder.pendingUpdateArticles();
+    }
 }
