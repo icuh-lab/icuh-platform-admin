@@ -3,6 +3,7 @@ package re.kr.icuh.icuhplatformadmin.core.domain;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import re.kr.icuh.icuhplatformadmin.core.api.controller.v1.response.ArticleListResponse;
+import re.kr.icuh.icuhplatformadmin.core.api.controller.v2.response.ArticleResponse;
 
 import java.util.List;
 
@@ -17,12 +18,10 @@ public class ArticleFinder {
 
     @Transactional(readOnly = true)
     public List<ArticleListResponse> findArticleByStatus(ArticleStatus status) {
-        List<ArticleListResponse> articleListResponses = articleRepository.findArticlesByStatusOrderByCreatedAtDesc(status)
+        return articleRepository.findArticlesByStatusOrderByCreatedAtDesc(status)
                 .stream()
                 .map(ArticleListResponse::fromEntity)
                 .toList();
-
-        return articleListResponses;
     }
 
     @Transactional
@@ -44,11 +43,17 @@ public class ArticleFinder {
 
     @Transactional(readOnly = true)
     public List<ArticleListResponse> pendingUpdateArticles() {
-        List<ArticleListResponse> pendingUpdateArticleListResponse = articleRepository.findPendingUpdateArticle()
+        return articleRepository.findPendingUpdateArticle()
                 .stream()
                 .map(ArticleListResponse::fromEntity)
                 .toList();
+    }
 
-        return pendingUpdateArticleListResponse;
+    @Transactional(readOnly = true)
+    public ArticleResponse findArticle(Long articleId) {
+        Article savedArticle = articleRepository.findById(articleId)
+                .orElseThrow(() -> new IllegalArgumentException("Article not found"));
+
+        return ArticleResponse.fromEntity(savedArticle);
     }
 }

@@ -87,7 +87,7 @@ function extractArticleIdFromUrl() {
 // 게시글 상세 정보 가져오기
 async function fetchArticleDetail(articleId) {
     try {
-        const response = await fetch(`/api/v1/admin/articles/update-detail/${articleId}`);
+        const response = await fetch(`/api/v2/articles/${articleId}`);
 
         if (!response.ok) {
             throw new Error('서버 응답 오류: ' + response.status);
@@ -123,8 +123,8 @@ function displayArticleDetail(article) {
     document.getElementById('articleDate').textContent = formatDate(article.createdAt);
     document.getElementById('articleOrganization').textContent = article.authorOrganization || '-';
     document.getElementById('articleDepartment').textContent = article.department || '-';
-    document.getElementById('articleDocumentType').textContent = article.classification.name || '-';
-    document.getElementById('articleSubjectDomain').textContent = article.serviceType.name || '-';
+    document.getElementById('articleDocumentType').textContent = article.documentType.name || '-';
+    document.getElementById('articleSubjectDomain').textContent = article.subjectDomain.name || '-';
 
     // 요약 및 본문 설정
     document.getElementById('articleSummary').textContent = article.summary || '요약 정보가 없습니다.';
@@ -159,7 +159,7 @@ function displayArticleDetail(article) {
                 ${file.originalFilename || '첨부파일'}
             `;
 
-            a.href = `http://localhost:8081${file.downloadUrl}`;
+            a.href = `http://localhost:8081${file.downloadUrl}`; // 왜 로컬호스트로 박혀있지?
 
             li.appendChild(a);
             attachmentList.appendChild(li);

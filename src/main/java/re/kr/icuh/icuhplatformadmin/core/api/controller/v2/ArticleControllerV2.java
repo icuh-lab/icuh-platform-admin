@@ -2,6 +2,7 @@ package re.kr.icuh.icuhplatformadmin.core.api.controller.v2;
 
 import org.springframework.web.bind.annotation.*;
 import re.kr.icuh.icuhplatformadmin.core.api.controller.v1.response.ArticleListResponse;
+import re.kr.icuh.icuhplatformadmin.core.api.controller.v2.response.ArticleResponse;
 import re.kr.icuh.icuhplatformadmin.core.domain.ArticleService;
 import re.kr.icuh.icuhplatformadmin.core.domain.ArticleStatus;
 
@@ -23,8 +24,23 @@ public class ArticleControllerV2 {
         return articleService.findArticles(status);
     }
 
+    @GetMapping("/api/v2/pending-articles")
+    public List<ArticleListResponse> findPendingUpdatedArticle() {
+        return articleService.findPendingArticles();
+    }
+
     @PatchMapping("/api/v2/articles/{articleId}")
     public void updateArticleStatus(@PathVariable Long articleId) {
         articleService.updateArticleStatus(articleId);
+    }
+
+    @PostMapping("/api/v2/articles/{articleId}/reject") // 해당 게시글의 상태값을 변경하는건데 post가 맞을까?
+    public void rejectArticle(@PathVariable Long articleId, @RequestBody String reason) {
+        articleService.rejectArticle(articleId, reason);
+    }
+
+    @GetMapping("/api/v2/articles/{articleId}")
+    public ArticleResponse findArticle(@PathVariable Long articleId) {
+        return articleService.findArticle(articleId);
     }
 }

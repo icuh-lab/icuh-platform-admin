@@ -2,6 +2,7 @@ package re.kr.icuh.icuhplatformadmin.core.domain;
 
 import org.springframework.stereotype.Service;
 import re.kr.icuh.icuhplatformadmin.core.api.controller.v1.response.ArticleListResponse;
+import re.kr.icuh.icuhplatformadmin.core.api.controller.v2.response.ArticleResponse;
 
 import java.util.List;
 
@@ -29,5 +30,9 @@ public class ArticleService {
 
     public List<ArticleListResponse> findPendingArticles() {
         return articleFinder.pendingUpdateArticles();
+    }
+
+    public ArticleResponse findArticle(Long articleId) {
+        return articleFinder.findArticle(articleId);
     }
 }
