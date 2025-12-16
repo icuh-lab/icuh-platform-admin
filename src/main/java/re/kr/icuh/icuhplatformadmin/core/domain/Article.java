@@ -176,4 +176,37 @@ public class Article {
             this.addFile(fileEntity);
         });
     }
+
+    public void updateArticleV2(UpdateArticleRequest updateArticleRequest) {
+        this.title = updateArticleRequest.title();
+        this.description = updateArticleRequest.description();
+        this.author = updateArticleRequest.author();
+        this.authorOrganization = updateArticleRequest.authorOrganization();
+        this.department = updateArticleRequest.department();
+        this.updatedAt = LocalDateTime.now();
+        this.status = ArticleStatus.APPROVED;
+//        this.views = updateArticleRequest.views();
+//        this.subjectDomain = updateArticleRequest.subjectDomainId();
+//        this.documentType = updateArticleRequest.documentTypeId();
+        this.source = updateArticleRequest.source();
+        this.files.clear();
+
+        updateArticleRequest.newFiles().forEach(newFileRequest -> {
+            FileEntity fileEntity = FileEntity.builder()
+                    .article(this)
+                    .originalFilename(newFileRequest.originalFileName())
+                    .storedFilename(newFileRequest.storedFileName())
+                    .filePath(newFileRequest.filePath())
+                    .extension(newFileRequest.extension())
+                    .fileSize(newFileRequest.fileSize())
+                    .build();
+
+            fileEntity.changeStatus(FileStatus.APPROVED);
+            this.addFile(fileEntity);
+        });
+    }
+
+    public void initPendingUpdate() {
+        this.pendingUpdate = null;
+    }
 }
