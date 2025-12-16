@@ -43,4 +43,12 @@ public class ArticleControllerV2 {
     public ArticleResponse findArticle(@PathVariable Long articleId) {
         return articleService.findArticle(articleId);
     }
+
+    /**
+     * 수정 요청 승인
+     */
+    @PatchMapping("/api/v2/articles/{articleId}/merge")
+    public void mergeArticle(@PathVariable Long articleId) {
+        articleService.mergeArticle(articleId);
+    }
 }
