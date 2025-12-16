@@ -35,4 +35,8 @@ public class ArticleService {
     public ArticleResponse findArticle(Long articleId) {
         return articleFinder.findArticle(articleId);
     }
+
+    public void mergeArticle(Long articleId) {
+        articleFinder.mergeArticle(articleId);
+    }
 }

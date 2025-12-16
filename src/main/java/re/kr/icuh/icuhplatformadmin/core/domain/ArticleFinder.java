@@ -49,11 +49,25 @@ public class ArticleFinder {
                 .toList();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) // 여기서 새로 변경될 데이터가 노출이 되도록해야함
     public ArticleResponse findArticle(Long articleId) {
         Article savedArticle = articleRepository.findById(articleId)
                 .orElseThrow(() -> new IllegalArgumentException("Article not found"));
 
         return ArticleResponse.fromEntity(savedArticle);
+    }
+
+    @Transactional
+    public void mergeArticle(Long articleId) {
+        Article savedArticle = articleRepository.findById(articleId)
+                .orElseThrow(() -> new IllegalArgumentException("Article not found"));
+
+        if (savedArticle.getPendingUpdate() == null) {
+            throw new IllegalArgumentException("Article not pending update");
+        }
+
+        // PendingUpdate 컬럼의 내용을 다시 역직렬화하여 객체로 전환 후 업데이트
+        savedArticle.updateArticleV2(savedArticle.getPendingUpdate());
+        savedArticle.initPendingUpdate();
     }
 }
