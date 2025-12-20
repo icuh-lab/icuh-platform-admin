@@ -3,6 +3,7 @@ package re.kr.icuh.icuhplatformadmin.core.domain;
 import org.springframework.stereotype.Service;
 import re.kr.icuh.icuhplatformadmin.core.api.controller.v1.response.ArticleListResponse;
 import re.kr.icuh.icuhplatformadmin.core.api.controller.v2.response.ArticleResponse;
+import re.kr.icuh.icuhplatformadmin.core.api.controller.v2.response.UpdateArticleResponse;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class ArticleService {
         return articleFinder.pendingUpdateArticles();
     }
 
-    public ArticleResponse findArticle(Long articleId) {
+    public UpdateArticleResponse findArticle(Long articleId) { // 변경될 Article의 내용이 노출되어야한다.
         return articleFinder.findArticle(articleId);
     }
 

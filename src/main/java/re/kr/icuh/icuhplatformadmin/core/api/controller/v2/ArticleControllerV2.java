@@ -3,6 +3,7 @@ package re.kr.icuh.icuhplatformadmin.core.api.controller.v2;
 import org.springframework.web.bind.annotation.*;
 import re.kr.icuh.icuhplatformadmin.core.api.controller.v1.response.ArticleListResponse;
 import re.kr.icuh.icuhplatformadmin.core.api.controller.v2.response.ArticleResponse;
+import re.kr.icuh.icuhplatformadmin.core.api.controller.v2.response.UpdateArticleResponse;
 import re.kr.icuh.icuhplatformadmin.core.domain.ArticleService;
 import re.kr.icuh.icuhplatformadmin.core.domain.ArticleStatus;
 
@@ -39,8 +40,8 @@ public class ArticleControllerV2 {
         articleService.rejectArticle(articleId, reason);
     }
 
-    @GetMapping("/api/v2/articles/{articleId}")
-    public ArticleResponse findArticle(@PathVariable Long articleId) {
+    @GetMapping("/api/v2/articles/{articleId}/pending-update")
+    public UpdateArticleResponse findArticle(@PathVariable Long articleId) {
         return articleService.findArticle(articleId);
     }
 

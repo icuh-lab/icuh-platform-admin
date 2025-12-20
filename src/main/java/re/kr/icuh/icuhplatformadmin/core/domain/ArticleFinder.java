@@ -3,17 +3,25 @@ package re.kr.icuh.icuhplatformadmin.core.domain;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import re.kr.icuh.icuhplatformadmin.core.api.controller.v1.response.ArticleListResponse;
-import re.kr.icuh.icuhplatformadmin.core.api.controller.v2.response.ArticleResponse;
+import re.kr.icuh.icuhplatformadmin.core.api.controller.v2.request.UpdateArticleRequest;
+import re.kr.icuh.icuhplatformadmin.core.api.controller.v2.response.UpdateArticleResponse;
+import re.kr.icuh.icuhplatformadmin.core.support.error.BusinessException;
+import re.kr.icuh.icuhplatformadmin.core.support.error.ErrorCode;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ArticleFinder {
 
     private final ArticleRepository articleRepository;
+    private final DocumentTypeRepository documentTypeRepository;
+    private final SubjectDomainRepository subjectDomainRepository;
 
-    public ArticleFinder(ArticleRepository articleRepository) {
+    public ArticleFinder(ArticleRepository articleRepository, DocumentTypeRepository documentTypeRepository, SubjectDomainRepository subjectDomainRepository) {
         this.articleRepository = articleRepository;
+        this.documentTypeRepository = documentTypeRepository;
+        this.subjectDomainRepository = subjectDomainRepository;
     }
 
     @Transactional(readOnly = true)
@@ -50,11 +58,24 @@ public class ArticleFinder {
     }
 
     @Transactional(readOnly = true) // 여기서 새로 변경될 데이터가 노출이 되도록해야함
-    public ArticleResponse findArticle(Long articleId) {
+    public UpdateArticleResponse findArticle(Long articleId) {
         Article savedArticle = articleRepository.findById(articleId)
                 .orElseThrow(() -> new IllegalArgumentException("Article not found"));
 
-        return ArticleResponse.fromEntity(savedArticle);
+        // pending_update에 있는 내용을 넘겨줘야한다.
+        if (savedArticle.getPendingUpdate() == null) {
+            throw new IllegalArgumentException("Article not pending update");
+        }
+
+        UpdateArticleRequest pendingUpdate = savedArticle.getPendingUpdate();
+
+        DocumentType documentType = documentTypeRepository.findById(pendingUpdate.documentTypeId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.DOCUMENT_TYPE_NOT_FOUND));
+
+        SubjectDomain subjectDomain = subjectDomainRepository.findById(pendingUpdate.subjectDomainId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.SUBJECT_DOMAIN_NOT_FOUND));
+
+        return UpdateArticleResponse.of(savedArticle.getId(), savedArticle.getStatus(), pendingUpdate, savedArticle.getUpdatedAt(), documentType, subjectDomain);
     }
 
     @Transactional

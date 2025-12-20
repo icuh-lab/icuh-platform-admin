@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 public record UpdateArticleRequest(
+        @NotNull Long id,
         @NotNull String title,
         @NotNull String description,
         @NotNull String author,
