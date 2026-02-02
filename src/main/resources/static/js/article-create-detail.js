@@ -138,7 +138,7 @@ function displayArticleDetail(article) {
                 ${file.originalFilename || '첨부파일'}
             `;
 
-            a.href = `http://localhost:8081${file.downloadUrl}`;
+            a.href = `http://infradna.io.kr:8081${file.downloadUrl}`;
 
             li.appendChild(a);
             attachmentList.appendChild(li);
