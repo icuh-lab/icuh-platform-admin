@@ -176,7 +176,7 @@ function displayArticleDetail(article) {
                 ${file.originalFileName || '첨부파일'}
             `;
 
-            a.href = `http://localhost:8081${file.downloadUrl}`; // 왜 로컬호스트로 박혀있지?
+            a.href = `http://infradna.io.kr:8081${file.downloadUrl}`; // 왜 로컬호스트로 박혀있지?
 
             li.appendChild(a);
             attachmentList.appendChild(li);
