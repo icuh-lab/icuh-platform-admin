@@ -22,6 +22,7 @@ public record UpdateArticleResponse(
         DocumentTypeResponse documentType,
         SubjectDomainResponse subjectDomain,
         String source,
+        String originUrl,
         List<NewFileResponse> files
 ) {
     public record NewFileResponse(
@@ -55,6 +56,7 @@ public record UpdateArticleResponse(
                 DocumentTypeResponse.fromEntity(documentType),
                 SubjectDomainResponse.fromEntity(subjectDomain),
                 updateArticleRequest.source(),
+                "http://localhost:5173/detail/" + id,
                 updateArticleRequest.newFiles().stream().map(NewFileResponse::of).toList()
         );
     }

@@ -173,8 +173,8 @@ function getStatusDisplayText(status) {
     switch(status) {
         case 'UPDATED_APPROVED':
             return '수정 완료';
-        case 'REJECTED':
-            return '거부됨';
+        case 'APPROVED':
+            return '게시중';
         case 'UPDATED_PENDING':
             return '수정 대기 중';
         default:
@@ -187,8 +187,8 @@ function getStatusClass(status) {
     switch(status) {
         case 'UPDATED_APPROVED':
             return 'bg-green-100 text-green-800';
-        case 'REJECTED':
-            return 'bg-red-100 text-red-800';
+        case 'APPROVED':
+            return 'bg-green-100 text-green-800';
         case 'UPDATED_PENDING':
         default:
             return 'bg-yellow-100 text-yellow-800';

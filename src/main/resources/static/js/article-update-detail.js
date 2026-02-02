@@ -87,7 +87,7 @@ function extractArticleIdFromUrl() {
 // 게시글 상세 정보 가져오기
 async function fetchArticleDetail(articleId) {
     try {
-        const response = await fetch(`/api/v2/articles/${articleId}`);
+        const response = await fetch(`/api/v2/articles/${articleId}/pending-update`);
 
         if (!response.ok) {
             throw new Error('서버 응답 오류: ' + response.status);
@@ -97,7 +97,8 @@ async function fetchArticleDetail(articleId) {
         displayArticleDetail(article);
 
         // 등록 대기 중인 경우 승인/반려 버튼 표시
-        if (article.status === 'UPDATED_PENDING') {
+        // TODO: 1216 일단 임시로 게시글의 상태가 APPROVED인 경우로 처리
+        if (article.status === 'APPROVED') {
             showActionButtons();
             document.getElementById('breadcrumbStatus').textContent = '수정 대기 중';
         } else {
@@ -120,14 +121,14 @@ function displayArticleDetail(article) {
     // 기본 정보 설정
     document.getElementById('articleTitle').textContent = article.title;
     document.getElementById('articleAuthor').textContent = article.author || '-';
-    document.getElementById('articleDate').textContent = formatDate(article.createdAt);
+    document.getElementById('articleDate').textContent = formatDate(article.updatedAt);
     document.getElementById('articleOrganization').textContent = article.authorOrganization || '-';
     document.getElementById('articleDepartment').textContent = article.department || '-';
     document.getElementById('articleDocumentType').textContent = article.documentType.name || '-';
     document.getElementById('articleSubjectDomain').textContent = article.subjectDomain.name || '-';
 
     // 요약 및 본문 설정
-    document.getElementById('articleSummary').textContent = article.summary || '요약 정보가 없습니다.';
+    document.getElementById('articleOrigin').textContent = article.originUrl || '게시물이 존재하지 않습니다.';
     document.getElementById('articleContentText').innerHTML = article.description || '내용이 없습니다.';
 
     // 상태 표시
@@ -136,6 +137,22 @@ function displayArticleDetail(article) {
     const statusText = getStatusDisplayText(article.status);
     statusElement.className = `px-3 py-1 text-xs font-semibold rounded-full ${statusClass}`;
     statusElement.textContent = statusText;
+
+    // 게시글 보기 설정
+    const originElement = document.getElementById('articleOrigin');
+
+    if (article.originUrl) {
+        originElement.innerHTML = `
+            <a href="${article.originUrl}" target="_blank" class="text-blue-600 hover:underline inline-flex items-center gap-1">
+                작성된 기존 게시글 보러가기
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                  <path fill-rule="evenodd" d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z" clip-rule="evenodd" />
+                  <path fill-rule="evenodd" d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z" clip-rule="evenodd" />
+                </svg>
+            </a>`;
+    } else {
+        originElement.textContent = '게시물이 존재하지 않습니다.';
+    }
 
     // 첨부파일 설정
     const attachmentList = document.getElementById('attachmentList');
@@ -156,7 +173,7 @@ function displayArticleDetail(article) {
                 <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"></path>
                 </svg>
-                ${file.originalFilename || '첨부파일'}
+                ${file.originalFileName || '첨부파일'}
             `;
 
             a.href = `http://localhost:8081${file.downloadUrl}`; // 왜 로컬호스트로 박혀있지?
@@ -229,7 +246,7 @@ function showActionButtons() {
 // 게시글 승인
 async function approveArticle(articleId) {
     try {
-        const response = await fetch(`/api/v1/admin/articles/update/${articleId}`, {
+        const response = await fetch(`/api/v2/articles/${articleId}/merge`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
