@@ -2,7 +2,6 @@ package re.kr.icuh.icuhplatformadmin.core.api.controller.v2;
 
 import org.springframework.web.bind.annotation.*;
 import re.kr.icuh.icuhplatformadmin.core.api.controller.v1.response.ArticleListResponse;
-import re.kr.icuh.icuhplatformadmin.core.api.controller.v2.response.ArticleResponse;
 import re.kr.icuh.icuhplatformadmin.core.api.controller.v2.response.UpdateArticleResponse;
 import re.kr.icuh.icuhplatformadmin.core.domain.ArticleService;
 import re.kr.icuh.icuhplatformadmin.core.domain.ArticleStatus;

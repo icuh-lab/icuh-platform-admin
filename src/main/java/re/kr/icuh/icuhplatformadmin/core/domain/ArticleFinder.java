@@ -9,7 +9,6 @@ import re.kr.icuh.icuhplatformadmin.core.support.error.BusinessException;
 import re.kr.icuh.icuhplatformadmin.core.support.error.ErrorCode;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class ArticleFinder {
@@ -69,10 +68,10 @@ public class ArticleFinder {
 
         UpdateArticleRequest pendingUpdate = savedArticle.getPendingUpdate();
 
-        DocumentType documentType = documentTypeRepository.findById(pendingUpdate.documentTypeId())
+        DocumentType documentType = documentTypeRepository.findByCode(pendingUpdate.documentTypeCode())
                 .orElseThrow(() -> new BusinessException(ErrorCode.DOCUMENT_TYPE_NOT_FOUND));
 
-        SubjectDomain subjectDomain = subjectDomainRepository.findById(pendingUpdate.subjectDomainId())
+        SubjectDomain subjectDomain = subjectDomainRepository.findByCode(pendingUpdate.subjectDomainCode())
                 .orElseThrow(() -> new BusinessException(ErrorCode.SUBJECT_DOMAIN_NOT_FOUND));
 
         return UpdateArticleResponse.of(savedArticle.getId(), savedArticle.getStatus(), pendingUpdate, savedArticle.getUpdatedAt(), documentType, subjectDomain);

@@ -5,17 +5,16 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 public record UpdateArticleRequest(
-        @NotNull Long id,
         @NotNull String title,
         @NotNull String description,
         @NotNull String author,
         @NotNull String authorOrganization,
         @NotNull String department,
         @NotNull String tempPassword,
-        @NotNull Long documentTypeId,
-        @NotNull Long subjectDomainId,
+        @NotNull String documentTypeCode,
+        @NotNull String subjectDomainCode,
         @NotNull String source,
-        List<NewFileRequest>newFiles
+        List<NewFileRequest> newFiles
 ) {
     public record NewFileRequest(
             String originalFileName,
